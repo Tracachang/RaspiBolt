@@ -29,8 +29,8 @@ Download and install LND
 
 ```sh
 $ cd /tmp
-$ wget https://github.com/lightningnetwork/lnd/releases/download/v0.11.1-beta/lnd-linux-armv7-v0.11.1-beta.tar.gz
-$ wget https://github.com/lightningnetwork/lnd/releases/download/v0.11.1-beta/manifest-v0.11.1-beta.txt
+$ wget https://github.com/lightningnetwork/lnd/releases/download/v0.12.1-beta/lnd-linux-arm64-v0.12.1-beta.tar.gz
+$ wget https://github.com/lightningnetwork/lnd/releases/download/v0.12.1-beta/manifest-v0.12.1-beta.txt
 $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.11.1-beta/manifest-v0.11.1-beta.txt.sig
 $ wget https://github.com/lightningnetwork/lnd/releases/download/v0.11.1-beta/roasbeef-manifest-v0.11.1-beta.txt.sig
 $ wget -o roasbeef.asc https://keybase.io/roasbeef/pgp_keys.asc
