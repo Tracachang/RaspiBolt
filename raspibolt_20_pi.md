@@ -53,6 +53,8 @@ The Pi is starting and gets a new address from your home network.
 Finding it can be a bit tricky without a screen.
 If you're lucky, you don't need to know this address and can just connect using mDNS.
 
+* If you have an android phone connected to the network (Wifi) you can install the app [fing](https://play.google.com/store/apps/details?id=com.overlook.android.fing&hl=en_US&gl=US) which will scan for all connected devices in your network. Once you have the IP you can move to the next step: Access with Secure Shell
+
 * On your regular computer, open the Terminal (also known as "command line").
   Here are a few links with additional details for [Windows](https://www.computerhope.com/issues/chusedos.htm){:target="_blank"}, [MacOS](https://macpaw.com/how-to/use-terminal-on-mac){:target="_blank"} and [Linux](https://www.howtogeek.com/140679/beginner-geek-how-to-start-using-the-linux-terminal/){:target="_blank"}.
 
