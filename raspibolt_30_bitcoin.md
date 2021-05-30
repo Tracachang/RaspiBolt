@@ -53,14 +53,14 @@ This is a precaution to make sure that this is an official release and not a mal
 
   ```sh
   # download Bitcoin Core binary
-  $ wget https://bitcoincore.org/bin/bitcoin-core-0.20.1/bitcoin-0.20.1-arm-linux-gnueabihf.tar.gz
-  $ wget https://bitcoincore.org/bin/bitcoin-core-0.20.1/SHA256SUMS.asc
+  $ wget https://bitcoincore.org/bin/bitcoin-core-0.21.1/bitcoin-0.21.1-aarch64-linux-gnu.tar.gz
+  $ wget https://bitcoincore.org/bin/bitcoin-core-0.21.1/SHA256SUMS.asc
   $ wget https://bitcoin.org/laanwj-releases.asc
 
   # check that the reference checksum matches the real checksum
   # (ignore the "lines are improperly formatted" warning)
   $ sha256sum --check SHA256SUMS.asc --ignore-missing
-  > bitcoin-0.20.1-arm-linux-gnueabihf.tar.gz: OK
+  > bitcoin-0.21.1-aarch64-linux-gnu.tar.gz: OK
 
   # import the public key of Wladimir van der Laan, verify the signed  checksum file
   # and check the fingerprint again in case of malicious keys
@@ -74,10 +74,10 @@ This is a precaution to make sure that this is an official release and not a mal
 * Extract the Bitcoin Core binaries, install them and check the version.
 
   ```sh
-  $ tar -xvf bitcoin-0.20.1-arm-linux-gnueabihf.tar.gz
+  $ tar -xvf bitcoin-0.21.1-aarch64-linux-gnu.tar.gz
   $ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-0.20.1/bin/*
   $ bitcoind --version
-  > Bitcoin Core version v0.20.1
+  > Bitcoin Core version v0.21.1
   ```
 
 <script id="asciicast-Ivlf954BGJNmOuJoj7FQ6qNKt" src="https://asciinema.org/a/Ivlf954BGJNmOuJoj7FQ6qNKt.js" async></script>
@@ -122,10 +122,13 @@ server=1
 txindex=1
 
 # Network
-listen=1
-listenonion=1
 proxy=127.0.0.1:9050
 bind=127.0.0.1
+onlynet=onion
+dnsseed=0
+dns=0
+addnode=nkf5e6b7pl4jfd4a.onion
+addnode=ecoc5q34tmbq54wl.onion
 
 # Connections
 rpcuser=raspibolt
@@ -140,6 +143,11 @@ maxuploadtarget=5000
 # Initial block download optimizations
 dbcache=2000
 blocksonly=1
+
+#serving compact filters to peers
+blockfilterindex=1
+peercfilters=1
+peerbloomfilters=1
 ```
 
 🚨 **Change the rpcpassword** to your secure `password [B]`.
