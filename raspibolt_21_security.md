@@ -165,17 +165,6 @@ $ sudo nano /etc/security/limits.conf
 root soft nofile 128000
 root hard nofile 128000
 ```
-
-```sh
-$ sudo nano /etc/pam.d/common-session
-session required pam_limits.so
-```
-
-```sh
-$ sudo nano /etc/pam.d/common-session-noninteractive
-session required pam_limits.so
-```
-
 <script id="asciicast-ZWxK6wLjrRs1AAnEJpXfIoyPb" src="https://asciinema.org/a/ZWxK6wLjrRs1AAnEJpXfIoyPb.js" async></script>
 
 ---
