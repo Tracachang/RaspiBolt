@@ -55,25 +55,8 @@ If you're lucky, you don't need to know this address and can just connect using 
 
 * If you have an android phone connected to the network (Wifi) you can install the app [fing](https://play.google.com/store/apps/details?id=com.overlook.android.fing&hl=en_US&gl=US) which will scan for all connected devices in your network. Once you have the IP you can move to the next step: Access with Secure Shell
 
-* On your regular computer, open the Terminal (also known as "command line").
-  Here are a few links with additional details for [Windows](https://www.computerhope.com/issues/chusedos.htm){:target="_blank"}, [MacOS](https://macpaw.com/how-to/use-terminal-on-mac){:target="_blank"} and [Linux](https://www.howtogeek.com/140679/beginner-geek-how-to-start-using-the-linux-terminal/){:target="_blank"}.
+* On your regular computer, or mobile phone you can access to the Router Configuration web page, go to the following URL in your webbrowser http://192.168.1.1 log in, and you will see all connected devices. Once you have the IP of your raspberry pi you will can connect with ssh.
 
-* Try to ping the Raspberry Pi local hostname (press `Ctrl`-`C` to interrupt)
-
-  ```sh
-  $ ping raspberrypi.local
-  > PING raspberrypi.local (192.168.1.192) 56(84) bytes of data.
-  > 64 bytes from 192.168.1.192 (192.168.1.192): icmp_seq=1 ttl=64 time=88.1 ms
-  > 64 bytes from 192.168.1.192 (192.168.1.192): icmp_seq=2 ttl=64 time=61.5 ms
-  ```
-
-* If you get a response like above, mDNS works within your local network.
-  Proceed directly to the next section.
-
-* If the `ping` command fails or does not return anything, you need to manually look for your Pi.
-  As this is a common challenge, just follow the official Raspberry Pi guideance on how to find your [IP Address](https://www.raspberrypi.org/documentation/remote-access/ip-address.md){:target="_blank"}.
-
-* You should now be able to reach your Pi, either with the hostname `raspberrypi.local` or an IP address like `192.168.1.20`.
 
 ### Access with Secure Shell
 
@@ -82,7 +65,7 @@ For that, a Secure Shell (SSH) client is needed.
 
 If you need to provide connection details, use the following settings:
 
-* host name: `raspberrypi.local` or the ip address like `192.168.1.20`
+* host name: the ip address like `192.168.1.20`
 * port: `22`
 * username: `pi`
 * password:  `raspberry`.
@@ -91,7 +74,6 @@ Install and start the SSH client for your operating system:
 
 * Windows: PuTTY ([Website](https://www.putty.org){:target="_blank"})
 * MacOS and Linux: from the Terminal, use the native command:
-  * `ssh pi@raspberrypi.local` or
   * `ssh pi@192.168.1.20`
 
 <script id="asciicast-UxufwsDLfdhIfitCfBbHXx4mA" src="https://asciinema.org/a/UxufwsDLfdhIfitCfBbHXx4mA.js" async></script>
