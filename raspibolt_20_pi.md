@@ -24,7 +24,7 @@ We configure the Raspberry Pi and install the Linux operating system.
 
 The node runs headless, that means without keyboard or display, so the operating system Raspbian Buster Lite is used.
 
-1. Download the [Raspbian Buster Lite](https://www.raspberrypi.org/downloads/raspbian/){:target="_blank"} disk image
+1. Download the [Manjaro Pi4 minimal](https://manjaro.org/downloads/arm/raspberry-pi-4/arm8-raspberry-pi-4-minimal/){:target="_blank"} disk image
 2. Write the disk image to your SD card with [this guide](https://www.raspberrypi.org/documentation/installation/installing-images/README.md){:target="_blank"}
 
 ### Enable Secure Shell
