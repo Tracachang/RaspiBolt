@@ -37,55 +37,20 @@ It is called "Tor" for "The Onion Router": information is encrypted multiple tim
 
 ## Installing Tor
 
-Log in your RaspiBolt via SSH as user "admin".
-
-* Add the following two lines to `sources.list` to add the torproject repository.
-
+You can install install tor from manjaro repo
   ```sh
-  $ sudo nano /etc/apt/sources.list
-  ```
-
-  ```
-  deb https://deb.torproject.org/torproject.org buster main
-  deb-src https://deb.torproject.org/torproject.org buster main
-  ```
-
-* In order to verify the integrity of the Tor files, download and add the signing keys of the torproject.
-
-  ```sh
-  $ sudo apt install dirmngr apt-transport-https
-  $ curl https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --import
-  $ gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
-  ```
-
-* The latest version of Tor can now be installed.
-
-  ```sh
-  $ sudo apt update
-  $ sudo apt install tor
+  $ sudo pacman -S tor
   ```
 
 * Check the version of Tor (it should be 0.3.3.6 or newer) and that the service is up and running.
 
   ```sh
   $ tor --version
-  > Tor version 0.4.1.6.
-  $ systemctl status tor
+  > Tor version 0.4.5.8
   ```
-
-* Check that within the "tor-service-defaults-torrc" file the "User" name is "debian-tor".
-
+  We want tor to start automatically when raspibolt boots so we will run:
   ```sh
-  $ cat /usr/share/tor/tor-service-defaults-torrc
-  > User debian-tor
-  ```
-
-* Make sure that user "bitcoin" belongs to the "debian-tor" group.
-
-  ```sh
-  $ sudo adduser bitcoin debian-tor
-  $ cat /etc/group | grep debian-tor
-  > debian-tor:x:114:bitcoin
+  $ sudo systemctl enable tor
   ```
 
 * Modify the Tor configuration by uncommenting (removing the #) or adding the following lines.
@@ -95,19 +60,31 @@ Log in your RaspiBolt via SSH as user "admin".
   ```
 
   ```conf
-  # uncomment:
-  ControlPort 9051
   CookieAuthentication 1
-
-  # add:
+  CookieAuthFile /var/lib/tor/control_auth_cookie
   CookieAuthFileGroupReadable 1
+  DataDirectoryGroupReadable 1
   ```
-
+* Make sure that user "bitcoin" belongs to the "tor" group.
+  ```sh
+  usermod -a -G tor bitcoin
+  ```
+  ... and as user, reload group settings 
+  
+  ```sh
+  $ newgrp tor
+  ```
+  
 * Restart Tor to activate modifications
 
   ```sh
   $ sudo systemctl restart tor
   ```
+  Now user should have access to your Tor cookie file. 
+  ```sh
+  $ stat -c%a /var/lib/tor /var/lib/tor/control_auth_cookie
+  ```
+  should print 750 and 640. 
 
 <script id="asciicast-xeGJH0YDOVZV719yn5rDL9GuP" src="https://asciinema.org/a/xeGJH0YDOVZV719yn5rDL9GuP.js" async></script>
 
