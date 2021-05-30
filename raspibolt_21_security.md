@@ -58,7 +58,7 @@ Follow this guide [Configure “No Password SSH Keys Authentication” with PuTT
   You will be prompted for your password once.
 
   ```sh
-  $ ssh-copy-id admin@raspibolt.local
+  $ ssh-copy-id admin@192.168.1.20
   ```
 
   💡 If you are on macOS and encounter an error, you might need to enable `ssh-copy-id` first, using [this guide](https://devtip.io/ssh-keys-remote-server).
@@ -101,7 +101,7 @@ Bitcoin Core and LND are using Tor and don't need incoming ports.
 The following steps need admin privileges and must be executed with the user "admin".
 
 ```sh
-$ sudo apt install ufw
+$ sudo pacman -S ufw
 $ sudo su
 $ ufw default deny incoming
 $ ufw default allow outgoing
@@ -140,7 +140,7 @@ This makes a brute-force attack unfeasible, as it would simply take too long.
 *Me locking myself out by entering wrong passwords*
 
 ```sh
-$ sudo apt install fail2ban
+$ sudo pacman -S fail2ban
 ```
 
 The initial configuration should be fine as it is enabled for SSH by default.
