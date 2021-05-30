@@ -91,7 +91,7 @@ If you're lucky, you don't need to know this address and can just connect using 
 * If the `ping` command fails or does not return anything, you need to manually look for your Pi.
   As this is a common challenge, just follow the official Raspberry Pi guideance on how to find your [IP Address](https://www.raspberrypi.org/documentation/remote-access/ip-address.md){:target="_blank"}.
 
-* You should now be able to reach your Pi, either with the hostname `raspberrypi.local` or an IP address like `192.168.0.20`.
+* You should now be able to reach your Pi, either with the hostname `raspberrypi.local` or an IP address like `192.168.1.20`.
 
 ### Access with Secure Shell
 
@@ -100,7 +100,7 @@ For that, a Secure Shell (SSH) client is needed.
 
 If you need to provide connection details, use the following settings:
 
-* host name: `raspberrypi.local` or the ip address like `192.168.0.20`
+* host name: `raspberrypi.local` or the ip address like `192.168.1.20`
 * port: `22`
 * username: `pi`
 * password:  `raspberry`.
@@ -110,13 +110,17 @@ Install and start the SSH client for your operating system:
 * Windows: PuTTY ([Website](https://www.putty.org){:target="_blank"})
 * MacOS and Linux: from the Terminal, use the native command:
   * `ssh pi@raspberrypi.local` or
-  * `ssh pi@192.168.0.20`
+  * `ssh pi@192.168.1.20`
 
 <script id="asciicast-UxufwsDLfdhIfitCfBbHXx4mA" src="https://asciinema.org/a/UxufwsDLfdhIfitCfBbHXx4mA.js" async></script>
 
 🔍 *more: [using SSH with Raspberry Pi](https://www.raspberrypi.org/documentation/remote-access/ssh/README.md){:target="_blank"}*
 
 ---
+
+## Initial Setup
+
+When you will connect to ssh you'll see a menu to install, it is very straightforward you'll be asked a username, we will use "admin" for this tutorial, set the password `password [A]` and when password for root is asked we will write again the same `password [A]`. We will choose local settings like language and location, once it is done we will see the command line. 
 
 ## The command line
 
@@ -171,66 +175,6 @@ $ ls -la
 You are now on the command line of your own Bitcoin node.
 Let's start with the configuration.
 
-### Raspi-Config
-
-Enter the following command:
-
-```sh
-$ sudo raspi-config
-```
-
-* First, on `1` change your password to your `password [A]`.
-* Next, choose Update `8` to get the latest configuration tool
-* Network Options `2`:
-  * you can give your node a cute hostname like “raspibolt”
-  * configure your Wifi connection
-* Boot Options `3`:
-  * choose `Desktop / CLI` → `B1 Console` and
-  * `Wait for network at boot`
-* Advanced `7`: run `Expand Filesystem`
-* Exit by selecting `<Finish>`, and `<No>` as no reboot is necessary
-
-<script id="asciicast-1oSmvJaZLCuN3hUIn33OZCtJy" src="https://asciinema.org/a/1oSmvJaZLCuN3hUIn33OZCtJy.js" async></script>
-
-**Important**: if you connected using the hostname `raspberrypi.local`, you now need to use the new hostname (e.g. `raspibolt.local`)
-
-The following two potential error messages are expected:
-
-* After changing the hostname, e.g. to `raspibolt`, a reboot is required to get rid of this error message.
-  It can be safely ignored for now.
-
-  ```
-  sudo: unable to resolve host raspberrypi: Name or service not known
-  ```
-
-* The `raspi-config` automatically sets your location, but does not generate the corresponding `locale` files:
-
-  ```sh
-  perl: warning: Setting locale failed.
-  perl: warning: Please check that your locale settings:
-  ...
-  LC_NUMERIC = "de_CH.UTF-8",
-  ...
-  are supported and installed on your system.
-  ```
-
-  This error is safe to ignore.
-  If you want to get rid of it, note the setting for `LC_NUMERIC` (e.g. `de_CH.UTF-8`), select this locale in the following configuration screen and configure it as default.
-
-  ```sh
-  $ sudo dpkg-reconfigure locales
-  ```
-  If the above fix does not remove the locale error, it is probably your host machine that you use to SSH from pushing its locale onto the Pi. What you need to do is very simple: make Pi stop accepting locale over SSH regardless of origin. You do that by editing sshd_config file in nano editor:
-
-```sh
-  $ sudo nano /etc/ssh/sshd_config
-  ```
-All you need to do now is find the AcceptEnv LANG LC_* and make sure to comment it out so it looks like this:
-```sh
-  #AcceptEnv LANG LC_*
-  ```
-Now CTRL+X (save) and exit, and the error will be gone.
-
 ### Software update
 
 It is important to keep the system up-to-date with security patches and application updates.
@@ -252,28 +196,13 @@ $ sudo pacman -S htop git curl bash-completion jq qrencode hdparm
 
 ### Add users
 
-This guide uses the main user "admin" instead of "pi" to make it more reusable with other platforms.
-
-* Create the new user "admin", set `password [A]` and add it to the group "sudo"
-
-  ```sh
-  $ sudo useradd admin -m 
-  $ sudo adduser admin sudo
-  ```
-
-* And while you’re at it, change the password of the “root” admin user to your `password [A]`.
-
-  ```sh
-  $ sudo passwd root
-  ```
-
 The bitcoin and lightning processes will run in the background (as a "daemon") and use the separate user “bitcoin” for security reasons.
 This user does not have admin rights and cannot change the system configuration.
 
 * Enter the following command, set your `password [A]` and confirm all questions with the enter/return key.
 
   ```sh
-  $ sudo useradd bitcoin
+  $ sudo useradd bitcoin -m
   ```
 
 * For convenience, the user "admin" is also a member of the group "bitcoin", giving it read-only privileges to configuration files.
