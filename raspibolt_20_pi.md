@@ -239,14 +239,13 @@ The “Advanced Packaging Tool” (apt) makes this easy.
 💡 Do this regularly every few months to get security related updates.
 
 ```sh
-$ sudo apt update
-$ sudo apt full-upgrade
+$ sudo pacman -Syu
 ```
 
 Make sure that all necessary software packages are installed:
 
 ```sh
-$ sudo apt install htop git curl bash-completion jq qrencode dphys-swapfile hdparm --install-recommends
+$ sudo pacman -S htop git curl bash-completion jq qrencode hdparm
 ```
 
 <script id="asciicast-hg9s5u5vzv04OpUPwTFfqqrLy" src="https://asciinema.org/a/hg9s5u5vzv04OpUPwTFfqqrLy.js" async></script>
@@ -258,7 +257,7 @@ This guide uses the main user "admin" instead of "pi" to make it more reusable w
 * Create the new user "admin", set `password [A]` and add it to the group "sudo"
 
   ```sh
-  $ sudo adduser admin
+  $ sudo useradd admin -m 
   $ sudo adduser admin sudo
   ```
 
@@ -274,13 +273,13 @@ This user does not have admin rights and cannot change the system configuration.
 * Enter the following command, set your `password [A]` and confirm all questions with the enter/return key.
 
   ```sh
-  $ sudo adduser bitcoin
+  $ sudo useradd bitcoin
   ```
 
 * For convenience, the user "admin" is also a member of the group "bitcoin", giving it read-only privileges to configuration files.
 
   ```sh
-  $ sudo adduser admin bitcoin
+  $ sudo gpasswd -a admin bitcoin
   ```
 
 * Restart your RaspiBolt.
@@ -520,27 +519,50 @@ We will now check if your drive works well as-is, or if additional configuration
 The usage of a swap file can degrade your SD card very quickly.
 Therefore, we will move it to the external drive.
 
-* Edit the configuration file and replace existing entries with the ones below. Save and exit.
+Use dd to create a swap file the size of your choosing. For example, creating a 4096 MiB swap file:
+```sh
+$ dd if=/dev/zero of=/mnt/ext/swapfile bs=1M count=4096 status=progress
+```
+Set the right permissions (a world-readable swap file is a huge local vulnerability):
+```sh
+$ chmod 600 /mnt/ext/swapfile
+```
+After creating the correctly sized file, format it to swap:
+```sh
+$ mkswap /mnt/extswapfile
+```
+Activate the swap file:
+```sh
+$ swapon /mnt/ext/swapfile
+```
+Finally, edit the fstab configuration to add an entry for the swap file:
+```sh
+$ sudo nano /etc/fstab
+```
+And add the entry:
 
-  ```sh
-  $ sudo nano /etc/dphys-swapfile
+```sh
+/mnt/ext/swapfile none swap defaults 0 0
+```
+
+Then disable zswap-arm.service with sudo systemctl disable zswap-arm.service  and restart
+
+```sh
+  $ sudo reboot now
   ```
+After reboot let's check with the command swapon:
 
-   ```ini
-   CONF_SWAPFILE=/mnt/ext/swapfile
-
-   # comment or delete the CONF_SWAPSIZE line. It will then be created dynamically
-   #CONF_SWAPSIZE=
-   ```
-
-* Recreate new swapfile on ssd (will be active after reboot)
-
-  ```sh
-  $ sudo dphys-swapfile install
+```sh
+  $ swapon
   ```
+And you should see this: 
+
+```sh
+NAME              TYPE SIZE   USED PRIO
+/mnt/ext/swapfile file   4G 422.5M   -2
 
 <script id="asciicast-p7I8GeTfxOk15dFWHu8FVV83q" src="https://asciinema.org/a/p7I8GeTfxOk15dFWHu8FVV83q.js" async></script>
-
+```
 ---
 
 Next: [Security >>](raspibolt_21_security.md)
