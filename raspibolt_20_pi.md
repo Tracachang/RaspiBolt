@@ -35,32 +35,12 @@ This causes the Secure Shell (ssh) to be enabled from the start and we will be a
 
 * Create a file `ssh` in the boot partition of the microSD card
 
-### Prepare Wifi
-
-You can run your RaspiBolt over Wifi.
-To avoid using a network cable for the initial setup, you can pre-configure the wireless settings:
-
-* Create a file `wpa_supplicant.conf` in the boot partition of the microSD card with the following content.
-  Note that the network name (ssid) and password need to be in double-quotes (like `psk="password"`)
-
-  ```conf
-  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-  update_config=1
-  country=[COUNTRY_CODE]
-  network={
-    ssid="[WIFI_SSID]"
-    psk="[WIFI_PASSWORD]"
-  }
-  ```
-
-* Replace `[COUNTRY_CODE]` with the [ISO2 code](https://www.iso.org/obp/ui/#search){:target="_blank"} of your country (eg. `US`)
-* Replace `[WIFI_SSID]` and `[WIFI_PASSWORD]` with the credentials for your own WiFi.
 
 ### Start your Pi
 
 * Safely eject the sd card from your computer
 * Insert the sd card into the Pi
-* If you did not already setup Wifi: connect the Pi to your network with an ethernet cable
+* Connect the Pi to your network with an ethernet cable
 * Start the Pi by connecting it to the power adapter using the USB-C cable
 
 ---
@@ -120,7 +100,7 @@ Install and start the SSH client for your operating system:
 
 ## Initial Setup
 
-When you will connect to ssh you'll see a menu to install, it is very straightforward you'll be asked a username, we will use "admin" for this tutorial, set the password `password [A]` and when password for root is asked we will write again the same `password [A]`. We will choose local settings like language and location, once it is done we will see the command line. 
+When you will connect to ssh you'll see a menu to install, it is very straightforward you'll be asked a username, we will use "admin" for this tutorial, set the password `password [A]` and when password for root is asked we will write again the same `password [A]`. We will choose local settings like language and location, and configure wifi if needed. Once the setup is done we will see the command line. 
 
 ## The command line
 
