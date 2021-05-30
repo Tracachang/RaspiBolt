@@ -55,10 +55,10 @@ $ gpg --verify roasbeef-manifest-v0.11.1-beta.txt.sig manifest-v0.11.1-beta.txt
 > Primary key fingerprint: 9769 140D 255C 759B 1EB7  7B46 A963 87A5 7CAA E94D
 >      Subkey fingerprint: 4AB7 F8DA 6FAE BB3B 70B1  F903 BC13 F65E 2DC8 4465
 
-$ tar -xzf lnd-linux-armv7-v0.11.1-beta.tar.gz
-$ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-armv7-v0.11.1-beta/*
+$ tar -xzf lnd-linux-arm64-v0.12.1-beta.tar.gz
+$ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-arm64-v0.12.1-beta.tar.gz/*
 $ lnd --version
-> lnd version 0.11.1-beta commit=v0.11.1-beta
+> lnd version 0.12.1-beta commit=v0.12.1-beta
 ```
 
 <script id="asciicast-DvuCHl1ibT4eursipO0Z53xf5" src="https://asciinema.org/a/DvuCHl1ibT4eursipO0Z53xf5.js" async></script>
