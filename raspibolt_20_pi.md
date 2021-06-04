@@ -200,7 +200,7 @@ The external hard disk is then attached to the file system and can be accessed a
 * Log in using SSH, but now with the user `admin`, your `password [A]` and the new hostname (e.g. `raspibolt.local`) or the IP address.
 
   ```sh
-  $ ssh admin@raspibolt.local
+  $ ssh admin@192.168.1.20
   ```
 
 * To change system configuration and files that don't belong to the "admin", you have to prefix commands with `sudo`.
@@ -373,7 +373,7 @@ We will now check if your drive works well as-is, or if additional configuration
 * Switch to user "bitcoin", navigate to the external drive and create the bitcoin directory.
 
   ```sh
-  $ sudo su - bitcoin
+  $ sudo su bitcoin
   $ cd /mnt/ext
   $ mkdir bitcoin
   $ ls -la
