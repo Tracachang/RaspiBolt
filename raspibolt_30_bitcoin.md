@@ -91,7 +91,7 @@ Instead of creating a real directory, we create a link that points to a director
 * Change to user “bitcoin” and add a symbolic link that points to the external drive.
 
   ```sh
-  $ sudo su - bitcoin
+  $ sudo su bitcoin
   $ ln -s /mnt/ext/bitcoin /home/bitcoin/.bitcoin
   ```
 
