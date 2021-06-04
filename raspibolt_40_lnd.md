@@ -70,7 +70,7 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
 * Open a "bitcoin" user session
 
   ```sh
-  $ sudo su - bitcoin
+  $ sudo su bitcoin
   ```
 
 * Create the LND working directory and the corresponding symbolic link
@@ -120,7 +120,7 @@ Now that LND is installed, we need to configure it to work with Bitcoin Core and
 Again, we switch to the user "bitcoin" and first start LND manually to check if everything works fine.
 
 ```sh
-$ sudo su - bitcoin
+$ sudo su bitcoin
 $ lnd
 ```
 
@@ -137,7 +137,7 @@ Once LND is started, the process waits for us to create the integrated Bitcoin w
 * Start a "bitcoin" user session
 
   ```sh
-  $2 sudo su - bitcoin
+  $2 sudo su bitcoin
   ```
 
 * Create the LND wallet
