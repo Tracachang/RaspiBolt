@@ -51,36 +51,13 @@ As there are no binaries available, we will compile the application directly fro
 
 * Install the Rust programming language
 
-  🚨 This Rust installation is for Linux ARM32 systems only. Don't install the following binaries on other platforms, it could damage your system.
-
   ```sh
-  # download
-  $ cd /tmp
-  $ curl https://static.rust-lang.org/dist/rust-1.48.0-armv7-unknown-linux-gnueabihf.tar.gz -o rust.tar.gz
-  $ curl https://static.rust-lang.org/dist/rust-1.48.0-armv7-unknown-linux-gnueabihf.tar.gz.asc -o rust.tar.gz.asc
-  $ curl https://keybase.io/rust/pgp_keys.asc | gpg --import
-
-  # verify
-  $ gpg --verify rust.tar.gz.asc rust.tar.gz
-  > gpg: Signature made Do 07 Nov 2019 13:25:50 GMT
-  > gpg:                using RSA key C13466B7E169A085188632165CB4A9347B3B09DC
-  > gpg: Good signature from "Rust Language (Tag and Release Signing Key) <rust-key@rust-lang.org>" [unknown]
-  > gpg: WARNING: This key is not certified with a trusted signature!
-  > gpg:          There is no indication that the signature belongs to the owner.
-  > Primary key fingerprint: 108F 6620 5EAE B0AA A8DD  5E1C 85AB 96E6 FA1B E5FE
-  >     Subkey fingerprint: C134 66B7 E169 A085 1886  3216 5CB4 A934 7B3B 09DC
-
-  # install
-  $ mkdir /home/admin/rust
-  $ tar --strip-components 1 -C /home/admin/rust -xzvf rust.tar.gz
-  $ cd /home/admin/rust
-  $ sudo ./install.sh
-  ```
+  $ sudo pacman -S rust
 
 * Install build tools
 
   ```sh
-  $ sudo apt install -y clang cmake
+  $ sudo pacman -S clang cmake
   ```
 
 <script id="asciicast-IQ8ZYiBUxbHZM6AxL41oS2Hbd" src="https://asciinema.org/a/IQ8ZYiBUxbHZM6AxL41oS2Hbd.js" async></script>
@@ -92,7 +69,7 @@ The whole process takes about 30 minutes.
 
   ```sh
   # download
-  $ cd /home/admin/rust
+  $ cd /home/admin/
   $ electrsgit=$(curl -s https://api.github.com/repos/romanz/electrs/tags | jq -r '.[0].name')
   $ git clone --branch ${electrsgit} https://github.com/romanz/electrs.git
   $ cd electrs
@@ -111,7 +88,7 @@ The whole process takes about 30 minutes.
 * Create the Electrs data directory on the external drive and link it to the "bitcoin" user home.
 
   ```sh
-  sudo su - bitcoin
+  sudo su bitcoin
   mkdir /mnt/ext/electrs
   ln -s /mnt/ext/electrs /home/bitcoin/.electrs
   ```
@@ -326,7 +303,7 @@ This means that NGINX provides secure communication to the outside and routes it
   💡 _Hint: NGINX is pronounced "Engine X"_
 
   ```sh
-  $ sudo apt install -y nginx
+  $ sudo pacman -S nginx
   ```
 
 * Create a self-signed TLS certificate (valid for 10 years)
@@ -499,7 +476,7 @@ Updating a [new release](https://github.com/romanz/electrs/releases){:target="_b
 * With user "admin", fetch the latest GitHub repository information and check out the new release.
 
   ```sh
-  $ cd ~/rust/electrs
+  $ cd /home/admin/electrs
   $ git fetch
   $ git checkout v0.8.5
   ```
